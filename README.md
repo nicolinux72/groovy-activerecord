@@ -20,15 +20,51 @@ class YourEntity implements ActiveRecordRepository {
 Then Spring Boot,when your application is booted, will add to you class standard Active Record methods like:
 
 ```groovy
-static countEntities() 
-static findAllEntities() 
-static  findEntity(id) 
-static findEntries( int firstResult, int maxResults) 
-persist()
-remove() 
-flush() 
-clear()  
-merge()
+/**
+ * Perform a SELECT COUNT for this entity on database 
+ */
+static countEntities() {...}
+	
+/**
+ * Return all entities store on database: pay attention on high volume
+ * tables.
+ */
+static findAllEntities() {...}
+	
+/**
+ * Retreive from database the entity with the passed primary key
+ */
+static  findEntity(id) {...}
+	
+/**
+ * Found all entities then paginate the results 
+ */
+static findEntries( int firstResult, int maxResults) {...}
+		
+/**
+ * Persiste this instance
+ */
+def persist() {...}
+	
+/**
+ * Remove from db this instance
+ */
+def remove()  {...}
+
+/**
+ * Force EntityManager to flush pending changes
+ */
+void flush()  {...}
+
+/**
+ * Clear EntityManager
+ */
+void clear()  {...}
+
+/**
+ * Merge this instance with the one inside EntityManager 
+ */
+def merge()   {...}
 ```
 
 You could found all thes methods inside the class 
