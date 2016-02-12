@@ -1,0 +1,57 @@
+apply plugin: 'groovy'
+//apply plugin: 'spring-boot'
+apply plugin: "io.spring.dependency-management"
+
+ext {
+    sourceEncoding='UTF-8'
+    description = 'Activexecord support for Spring Boot groovy entities' 
+}
+
+jar {
+    baseName = 'groovy-activerecord'
+    version =  '1.0.0'
+}
+
+buildscript {
+    ext {
+        springBootVersion = '1.3.0.RELEASE'
+        groovyVersion = '2.4.3'
+    }
+    repositories {
+        jcenter()
+        maven { url "http://repo.spring.io/libs-snapshot-local" }
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "io.spring.gradle:dependency-management-plugin:0.4.0.RELEASE"
+    }
+}
+
+dependencies {
+    compile "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
+    compile "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"
+    
+    compile "org.codehaus.groovy:groovy-all:${groovyVersion}"
+    compile "org.codehaus.groovy:groovy-templates:${groovyVersion}"
+
+    testCompile "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+    //testCompile "junit:junit"
+
+    testCompile 'hsqldb:hsqldb:1.8.0.10'
+
+}
+
+repositories {
+    jcenter()
+    maven { url 'http://repo.spring.io/snapshot' }
+    maven { url 'https://repo.spring.io/release/' }
+    maven { url "http://repo.spring.io/libs-snapshot-local" }
+    maven { url "http://repo.spring.io/libs-milestone-local" }
+    maven { url "http://repo.spring.io/libs-release-local" }
+    mavenCentral()
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.5'
+}
