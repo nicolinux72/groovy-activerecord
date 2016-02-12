@@ -32,29 +32,63 @@ trait ActiveRecordRepository {
 	
 	//static GenericActiveRecord gac() inject by  ActiveRecordConfig
 
+	/**
+	 * Perform a SELECT COUNT for this entity on database 
+	 */
 	static countEntities() {
 		gac().entityManager.createQuery("SELECT COUNT(o) FROM ${this.name} o", Long.class).getSingleResult();
 	}
 	
+	/**
+	 * Return all entities store on database: pay attention on high volume
+	 * tables.
+	 */
 	static findAllEntities() {
 		gac().entityManager.createQuery("SELECT o FROM ${this.name} o", this).getResultList();
 	}
 	
+	/**
+	 * Retreive from database the entity with the passed primary key
+	 */
 	static  findEntity(id) {
 		if (id == null) return null;
 		return gac().entityManager.find(this, id);
 	}
 	
+	/**
+	 * Found all entities then paginate the results 
+	 */
 	static findEntries( int firstResult, int maxResults) {
 			gac().entityManager.createQuery("SELECT o FROM ${this.name} o", this)
 		 .setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
 	}
 		
-	//i metodi che richiedono transazione sono delegati
+	/**
+	 * Persiste this instance
+	 * @return
+	 */
 	def persist() { gac().persist(this) }
+	
+	/**
+	 * Remove from db this instance
+	 * @return
+	 */
 	def remove()  { gac().remove(this) }
+	
+	/**
+	 * Force EntityManager to flush pending changes
+	 */
 	void flush()  { gac().flush() }
+	
+	/**
+	 * Clear EntityManager
+	 */
 	void clear()  { gac().clear() }
+	
+	/**
+	 * Merge this instance with the one inside EntityManager 
+	 * @return
+	 */
 	def merge()   { gac().merge(this) }
 
 }
