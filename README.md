@@ -1,14 +1,14 @@
-# groovy active-record
+# Groovy ActiveRecord
 
-This library adds ActiveRecord support to jpa entity written in groovy inside Spring Boot application.
+This library adds ActiveRecord support to your groovy jpa entity inside a Spring Boot application. That'all.
 
-## setup your project 
+## Setup your project 
 
-Add grovy active-record library to your Spring Boot project dependencies.
+Add grovy active-record library to your Spring Boot project dependencies. Please consider that this library work with early versio of Spring boot also, so you may consider to replace dependency to Spring Boot 1.3.0.RELEASE with the version your are actually use.
 
-## instrument an entity class
+## Setup your entity class
 
-Simpliy add the trait ActiveRecordRepository to your entity class:
+Simpliy add the trait ActiveRecordRepository to your entity jpa entity class in this way:
 
 ```groovy
 @Entity  
@@ -17,7 +17,7 @@ class YourEntity implements ActiveRecordRepository {
 }
 ```
 
-Then Spring Boot,when your application is booted, will add to you class standard Active Record methods like:
+Then Spring Boot, starting up your application, will add to your entity class standard Active Record methods like:
 
 ```groovy
 /** Perform a SELECT COUNT for this entity on database */
@@ -48,10 +48,10 @@ void clear()
 def merge()   
 ```
 
-You could found all thes methods inside the class 
+You could found all these methods inside the class 
 [ActiveRecordRepository]
 (https://github.com/nicolinux72/groovy-activerecord/blob/master/src/main/groovy/it/nicolasanti/autoconfigure/ActiveRecordRepository.groovy)
 
-# working example
+# Working example
 
-See test classes for a working example: you'll find an entity class named [Studente](https://github.com/nicolinux72/groovy-activerecord/blob/master/src/test/groovy/it/nicolasanti/autoconfigure/Studente.groovy) (italian word for student) with and id, a name and a surname. The ActiveRecord methods are tested in the class [ActiveRecordTest](https://github.com/nicolinux72/groovy-activerecord/blob/master/src/test/groovy/it/nicolasanti/autoconfigure/ActiveRecordTest.groovy).
+If you are interested in see a workging example you could take a look to test classes: you'll find an entity class named [Studente](https://github.com/nicolinux72/groovy-activerecord/blob/master/src/test/groovy/it/nicolasanti/autoconfigure/Studente.groovy) (with means student, in italian) with and id, a name and a surname as only properties. The injected ActiveRecord methods are tested in the class [ActiveRecordTest](https://github.com/nicolinux72/groovy-activerecord/blob/master/src/test/groovy/it/nicolasanti/autoconfigure/ActiveRecordTest.groovy).
