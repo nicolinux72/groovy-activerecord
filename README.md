@@ -1,6 +1,6 @@
 # Groovy ActiveRecord
 
-This library adds ActiveRecord support to your groovy jpa entity inside a Spring Boot application. That'all.
+This library adds ActiveRecord support to your groovy jpa entity inside a Spring Boot application. That's all.
 
 ## Setup your project 
 
