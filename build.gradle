@@ -1,6 +1,6 @@
 apply plugin: 'groovy'
-//apply plugin: 'spring-boot'
-apply plugin: "io.spring.dependency-management"
+apply plugin: 'maven'
+apply plugin: 'signing'
 
 ext {
     sourceEncoding='UTF-8'
@@ -10,6 +10,67 @@ ext {
 jar {
     baseName = 'groovy-activerecord'
     version =  '1.0.0'
+}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+
+signing {
+    sign configurations.archives
+}
+
+group = "it.nicolasanti"
+archivesBaseName = "groovy-activerecord"
+version = "1.0.0"
+
+uploadArchives {
+  repositories {
+    mavenDeployer {
+      beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+      repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+        authentication(userName: ossrhUsername, password: ossrhPassword)
+      }
+
+      snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+        authentication(userName: ossrhUsername, password: ossrhPassword)
+      }
+
+      pom.project {
+        name 'Groovy ActiveRecord'
+        packaging 'jar'
+        // optionally artifactId can be defined here 
+        description 'ActiveRecord support for Spring boot entity classes.'
+        url 'https://github.com/nicolinux72/groovy-activerecord'
+        scm {url 'https://github.com/nicolinux72/groovy-activerecord.git'}
+
+        licenses { license {
+            name 'The Apache License, Version 2.0'
+            url '  http://www.apache.org/licenses/LICENSE-2.0.txt'
+        } }
+
+        developers {
+          developer {
+            id 'nicolinux72'
+            name 'Nicola Santi'
+            email 'rusco at nicolasanti dot it'
+          }
+        }
+      }
+    }
+  }
 }
 
 buildscript {
@@ -24,31 +85,23 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-        classpath "io.spring.gradle:dependency-management-plugin:0.4.0.RELEASE"
     }
 }
 
 dependencies {
-    compile "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
+    //compile "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
     compile "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"
     
     compile "org.codehaus.groovy:groovy-all:${groovyVersion}"
     compile "org.codehaus.groovy:groovy-templates:${groovyVersion}"
 
     testCompile "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
-    //testCompile "junit:junit"
-
     testCompile 'hsqldb:hsqldb:1.8.0.10'
-
 }
 
 repositories {
     jcenter()
-    maven { url 'http://repo.spring.io/snapshot' }
     maven { url 'https://repo.spring.io/release/' }
-    maven { url "http://repo.spring.io/libs-snapshot-local" }
-    maven { url "http://repo.spring.io/libs-milestone-local" }
-    maven { url "http://repo.spring.io/libs-release-local" }
     mavenCentral()
 }
 

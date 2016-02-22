@@ -4,7 +4,23 @@ This library adds ActiveRecord support to your groovy jpa entity inside a Spring
 
 ## Setup your project 
 
-Add grovy active-record library to your Spring Boot project dependencies. Please consider that this library work with early versio of Spring boot also, so you may consider to replace dependency to Spring Boot 1.3.0.RELEASE with the version your are actually use.
+Add grovy active-record library to your Spring Boot project dependencies. For example add these lines to your pom.xml file: 
+
+```xml
+<dependency>
+    <groupId>it.nicolasanti</groupId>
+    <artifactId>groovy-activerecord</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+
+Or this line to your build.gradle file:
+
+```groovy
+compile 'it.nicolasanti:groovy-activerecord:1.0.0'
+```
+
+Please consider that this library work with early versio of Spring boot also, so you may consider to replace dependency to Spring Boot 1.3.0.RELEASE with the version your are actually use.
 
 ## Setup your entity class
 
