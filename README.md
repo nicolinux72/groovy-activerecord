@@ -22,6 +22,15 @@ compile 'it.nicolasanti:groovy-activerecord:1.0.0'
 
 Please consider that this library work with early versio of Spring boot also, so you may consider to replace dependency to Spring Boot 1.3.0.RELEASE with the version your are actually use.
 
+The last step is remember to scan for component the groovy-activerecord'jar also, something like this:
+
+```groovy
+@ComponentScan("it.nicolasanti.autoconfigure")
+```
+
+
+
+
 ## Setup your entity class
 
 Simpliy add the trait ActiveRecordRepository to your entity jpa entity class in this way:
